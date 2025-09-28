@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -29,12 +30,17 @@ public class Main {
                 prop.getProperty("user"),
                 System.getenv("MYSQL_PASS")
         )){
+            Scanner sc = new Scanner(System.in);
+            String inputAlbum = sc.nextLine();
+            String query = "SELECT * FROM albums WHERE album_name='" + inputAlbum + "'";
+
+
             Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT artist_name FROM artists WHERE artist_name LIKE 'I%'");
+            ResultSet rs = statement.executeQuery(query);
 
             while(rs.next()){
-                String name = rs.getString("artist_name");
-                System.out.println(name);
+                String name = rs.getString("album_name");
+                System.out.printf("%s\n", name);
             }
         }catch(SQLException e){
             throw new RuntimeException(e);
