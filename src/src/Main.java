@@ -33,12 +33,18 @@ public class Main {
 //            String inputAlbum = sc.nextLine();
 //            String query = "SELECT * FROM albums WHERE album_name='" + inputAlbum + "'";
 
-            String update = "INSERT INTO artists (artist_name) VALUES ('Linkin Park')";
+            String insertUpdate = "INSERT INTO artists (artist_name) VALUES ('Linkin Park')";
 
             Statement statement = connection.createStatement();
-            int rs = statement.executeUpdate(update);
+            int rs = statement.executeUpdate(insertUpdate);
 
             System.out.printf("%d lines affected", rs);
+
+            String deleteUpdate = "DELETE FROM artists WHERE artist_name='Linkin Park'";
+            int lines = statement.executeUpdate(deleteUpdate);
+
+            System.out.printf("%d lines affected", lines);
+
         }catch(SQLException e){
             throw new RuntimeException(e);
         }
