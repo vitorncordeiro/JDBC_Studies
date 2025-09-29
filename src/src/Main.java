@@ -5,7 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
@@ -31,17 +30,15 @@ public class Main {
                 System.getenv("MYSQL_PASS")
         )){
             Scanner sc = new Scanner(System.in);
-            String inputAlbum = sc.nextLine();
-            String query = "SELECT * FROM albums WHERE album_name='" + inputAlbum + "'";
+//            String inputAlbum = sc.nextLine();
+//            String query = "SELECT * FROM albums WHERE album_name='" + inputAlbum + "'";
 
+            String update = "INSERT INTO artists (artist_name) VALUES ('Linkin Park')";
 
             Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery(query);
+            int rs = statement.executeUpdate(update);
 
-            while(rs.next()){
-                String name = rs.getString("album_name");
-                System.out.printf("%s\n", name);
-            }
+            System.out.printf("%d lines affected", rs);
         }catch(SQLException e){
             throw new RuntimeException(e);
         }
