@@ -5,8 +5,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Properties;
 import java.util.Scanner;
 
@@ -35,18 +35,23 @@ public class Main {
 
             connection.setAutoCommit(false);
 
-            String insertUpdate = "INSERT INTO artists (artist_name) VALUES ('Linkin Park')";
+            String insertUpdate = "INSERT INTO artists (artist_name) VALUES (?)";
 
-            Statement statement = connection.createStatement();
-            int rs = statement.executeUpdate(insertUpdate);
+            PreparedStatement statement = connection.prepareStatement(insertUpdate);
+            statement.setString(1, sc.nextLine());
+            int rs = statement.executeUpdate();
 
             System.out.printf("%d lines affected", rs);
             connection.commit();
-            String deleteUpdate = "DELETE FROM artists WHERE artist_name='Linkin Park'";
-            int lines = statement.executeUpdate(deleteUpdate);
 
-            System.out.printf("%d lines affected", lines);
-            connection.rollback();
+
+
+
+//            String deleteUpdate = "DELETE FROM artists WHERE artist_name='Linkin Park'";
+//            int lines = statement.executeUpdate(deleteUpdate);
+//
+//            System.out.printf("%d lines affected", lines);
+//            connection.rollback();
         }catch(SQLException e){
             throw new RuntimeException(e);
         }
