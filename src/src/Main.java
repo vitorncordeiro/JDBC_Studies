@@ -47,11 +47,11 @@ public class Main {
 
 
 
-//            String deleteUpdate = "DELETE FROM artists WHERE artist_name='Linkin Park'";
-//            int lines = statement.executeUpdate(deleteUpdate);
-//
-//            System.out.printf("%d lines affected", lines);
-//            connection.rollback();
+            String deleteUpdate = "DELETE FROM artists WHERE artist_name='Linkin Park'";
+            int lines = statement.executeUpdate(deleteUpdate);
+
+            System.out.printf("%d lines affected", lines);
+            connection.rollback();
         }catch(SQLException e){
             throw new RuntimeException(e);
         }
